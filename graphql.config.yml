@@ -1,0 +1,16 @@
+projects:
+  authorized:
+    schema: ./schemas/authorized-schema.graphql
+    documents: src/gql/authorized//*.{graphql}
+    extensions:
+      endpoints:
+        ServerM:
+          url: https://graphqlplaceholder.vercel.app/graphql
+          headers:
+            root-password: password123
+          introspect: true
+        Localhost:
+          url: http://localhost:8080/gql/
+          headers:
+            root-password: password123
+          introspect: true

@@ -1,0 +1,33 @@
+overwrite: true
+schema: ['./schemas/authorized-schema.graphql']
+documents:
+  - "src/gql/*.gql.ts"
+  - "src/gql/**/*.graphql"
+generates:
+  src/graphql/generate.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-apollo-angular
+    config:
+      immutableTypes: true
+      avoidOptionals: true
+      skipTypeNameForRoot: true
+      onlyOperationTypes: true
+      strictScalars: true
+      typesPrefix: 'Gql'
+
+      namingConvention:
+        typeNames: change-case#pascalCase
+
+      querySuffix: 'Request'
+      mutationSuffix: 'Request'
+      subscriptionSuffix: 'Watch'
+
+      scalars:
+        Instant: string
+        UUID: Uuid
+        Long: number
+        String: string
+        LocalDate: string
+        CustomFloat: number

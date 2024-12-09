@@ -52,6 +52,7 @@ module.exports = tseslint.config(
             '@typescript-eslint/explicit-member-accessibility': 'off',
             '@typescript-eslint/no-unused-expressions': 'off',
             '@typescript-eslint/no-empty-function': 'warn',
+            '@typescript-eslint/consistent-type-assertions': 'off',
             '@typescript-eslint/no-useless-constructor': 'warn',
             '@angular-eslint/directive-selector': [
                 'error',

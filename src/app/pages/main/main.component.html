@@ -1,1 +1,4 @@
-<p>main works!</p>
+<p>Наши челики</p>
+<ul>
+    <li *ngFor="let user of users$ | async">{{ user?.name }} - {{ user?.email }}</li>
+</ul>

@@ -9,12 +9,19 @@ import {provideHttpClient} from '@angular/common/http';
 import {provideApollo} from 'apollo-angular';
 import {HttpLink} from 'apollo-angular/http';
 import {InMemoryCache} from '@apollo/client/core';
+import {provideStore} from '@ngrx/store';
+import {regularBrigadesReducer} from './pages/main/store/main.reducer';
+import {provideEffects} from '@ngrx/effects';
+import {RegularBrigadesEffects} from './pages/main/store/main.effects';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimations(),
         provideZoneChangeDetection({eventCoalescing: true}),
         provideRouter(routes),
+        provideStore({
+            mainState: regularBrigadesReducer,
+        }),
         provideClientHydration(withEventReplay()),
         NG_EVENT_PLUGINS,
         provideHttpClient(),
@@ -23,10 +30,11 @@ export const appConfig: ApplicationConfig = {
 
             return {
                 link: httpLink.create({
-                    uri: '<%= endpoint %>',
+                    uri: 'https://graphqlplaceholder.vercel.app/graphql',
                 }),
                 cache: new InMemoryCache(),
             };
         }),
+        provideEffects([RegularBrigadesEffects]),
     ],
 };

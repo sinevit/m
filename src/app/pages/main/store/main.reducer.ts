@@ -3,17 +3,16 @@ import {MainState} from './main.model';
 import {MainActions} from './main.actions';
 
 export const initialState: MainState = <MainState>{
-    users: null,
+    users: [],
 };
 
-const regularBrigadesReducer = createReducer(
+export const regularBrigadesReducer = createReducer(
     initialState,
-
     on(
         MainActions.setUsers,
         (state: MainState, action): MainState => ({
             ...state,
-            users: action.data,
+            users: action.data || [],
         }),
     ),
 );

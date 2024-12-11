@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {switchMap, tap, map, catchError} from 'rxjs/operators';
-import {GqlGetUsersRequest} from '../../../../graphql/generate';
+import {tap, map, switchMap, catchError} from 'rxjs/operators';
+
 import {MainActions} from './main.actions';
+import {GqlGetUsersRequest} from '../../../../graphql/generate';
 import {User} from './main.model';
+import {of} from 'rxjs';
 
 @Injectable()
 export class RegularBrigadesEffects {
@@ -12,31 +14,29 @@ export class RegularBrigadesEffects {
         private gqlGetUsersRequest: GqlGetUsersRequest,
     ) {}
 
-    public getAllUsersRequest$ = createEffect(() =>
+    getAllUsersRequest$ = createEffect(() =>
         this.actions$.pipe(
             ofType(MainActions.loadingUsers),
+            tap(() => console.log('Эффект вызван')),
             switchMap(() =>
                 this.gqlGetUsersRequest.fetch().pipe(
-                    tap(),
+                    tap(response => console.log('ответ от сервака', response)),
                     map(staff => {
-                        const data = staff.data.users;
-                        console.log('data', resolve);
-                        const resolve: User[] = data.map(
-                            (u): User => ({
-                                id: u.id,
-                                name: u.name,
-                                username: u.username,
-                                email: u.email,
-                                phone: u.phone,
-                                website: u.website,
-                            }),
-                        );
-                        console.log('eff', resolve);
+                        const data = staff?.data?.users || [];
+                        const resolve: User[] = data.map(u => ({
+                            id: u.id,
+                            name: u.name,
+                            username: u.username,
+                            email: u.email,
+                            phone: u.phone,
+                            website: u.website,
+                        }));
+                        console.log('resolve =>', resolve);
                         return MainActions.setUsers({data: resolve});
                     }),
                     catchError(err => {
-                        console.log(JSON.stringify(err));
-                        return '';
+                        console.error('Ошибка при выполнении эффекта', err);
+                        return of(MainActions.setUsers({data: []}));
                     }),
                 ),
             ),

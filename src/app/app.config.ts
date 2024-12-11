@@ -10,9 +10,9 @@ import {provideApollo} from 'apollo-angular';
 import {HttpLink} from 'apollo-angular/http';
 import {InMemoryCache} from '@apollo/client/core';
 import {provideStore} from '@ngrx/store';
-import {regularBrigadesReducer} from './pages/main/store/main.reducer';
 import {provideEffects} from '@ngrx/effects';
-import {RegularBrigadesEffects} from './pages/main/store/main.effects';
+import {MainEffects} from './pages/main/store/main.effects';
+import {mainReducer} from './pages/main/store/main.reducer';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -20,7 +20,7 @@ export const appConfig: ApplicationConfig = {
         provideZoneChangeDetection({eventCoalescing: true}),
         provideRouter(routes),
         provideStore({
-            mainState: regularBrigadesReducer,
+            mainState: mainReducer,
         }),
         provideClientHydration(withEventReplay()),
         NG_EVENT_PLUGINS,
@@ -35,6 +35,6 @@ export const appConfig: ApplicationConfig = {
                 cache: new InMemoryCache(),
             };
         }),
-        provideEffects([RegularBrigadesEffects]),
+        provideEffects([MainEffects]),
     ],
 };

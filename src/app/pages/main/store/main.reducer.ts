@@ -6,7 +6,7 @@ export const initialState: MainState = <MainState>{
     users: [],
 };
 
-export const regularBrigadesReducer = createReducer(
+export const mainReducer = createReducer(
     initialState,
     on(
         MainActions.setUsers,
@@ -18,5 +18,5 @@ export const regularBrigadesReducer = createReducer(
 );
 
 export function reducer(state: MainState, action: Action): MainState {
-    return regularBrigadesReducer(state, action);
+    return mainReducer(state, action);
 }

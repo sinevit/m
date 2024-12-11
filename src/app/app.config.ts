@@ -2,7 +2,7 @@ import {NG_EVENT_PLUGINS} from '@taiga-ui/event-plugins';
 import {provideAnimations} from '@angular/platform-browser/animations';
 import {ApplicationConfig, provideZoneChangeDetection, inject} from '@angular/core';
 import {provideRouter} from '@angular/router';
-
+import {provideStoreDevtools} from '@ngrx/store-devtools';
 import {routes} from './app.routes';
 import {provideClientHydration, withEventReplay} from '@angular/platform-browser';
 import {provideHttpClient} from '@angular/common/http';
@@ -13,6 +13,7 @@ import {provideStore} from '@ngrx/store';
 import {provideEffects} from '@ngrx/effects';
 import {MainEffects} from './pages/main/store/main.effects';
 import {mainReducer} from './pages/main/store/main.reducer';
+import {environment} from '../enviroments/environment';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -25,6 +26,10 @@ export const appConfig: ApplicationConfig = {
         provideClientHydration(withEventReplay()),
         NG_EVENT_PLUGINS,
         provideHttpClient(),
+        provideStoreDevtools({
+            maxAge: 30,
+            logOnly: environment.production,
+        }),
         provideApollo(() => {
             const httpLink = inject(HttpLink);
 

@@ -250,7 +250,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/compiler-cli@^19.0.3":
+"@angular/compiler-cli@^19.0.0", "@angular/compiler-cli@^19.0.3":
   version "19.0.3"
   resolved "https://registry.npmjs.org/@angular/compiler-cli/-/compiler-cli-19.0.3.tgz"
   integrity sha512-nayLcC3hSHoGKXCZInMdFcIZJEHYkEGNsdAutgCMuSj+lXCGuRUysuGC0rGzJc2R6nhgfaLJnO8T/O5acqaqdA==

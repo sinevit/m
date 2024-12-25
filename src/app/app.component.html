@@ -1,2 +1,23 @@
-<app-main></app-main>
-<router-outlet />
+<!--<app-main></app-main>-->
+<!--<router-outlet />-->
+<tui-root>
+    <ng-container *ngTemplateOutlet="isAuth ? app : auth"></ng-container>
+</tui-root>
+
+<ng-template #auth>
+    <router-outlet></router-outlet>
+</ng-template>
+
+<ng-template #app>
+    <div class="app__container">
+        <app-side-nav></app-side-nav>
+        <!--    <rev-side-nav></rev-side-nav>-->
+        <!--    <div class="app__content">-->
+        <!--      <rev-global-spinner-state></rev-global-spinner-state>-->
+        <!--      <rev-nav-toolbar class="header__toolbar"></rev-nav-toolbar>-->
+        <!--      <div class="app__body">-->
+        <!--        <router-outlet></router-outlet>-->
+        <!--      </div>-->
+        <!--    </div>-->
+    </div>
+</ng-template>
